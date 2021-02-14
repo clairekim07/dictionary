@@ -32,7 +32,7 @@ import { Header } from 'react-native-elements';
       .then((response)=>{
           var responseObject = response
           if(responseObject){
-              var wordData=responseObjq.definitions[0]
+              var wordData=responseObject.definitions[0]
               var definition=wordData.description
               var lexicalCategory=wordData.wordtype
               this.setState({
@@ -48,9 +48,22 @@ import { Header } from 'react-native-elements';
           }
       })
   }
+  texts=()=>{
+    this.setState({
+      word:this.state.text
+    })
+  }
   render() {
     return (
       <View style={styles.container}>
+       <Header
+          backgroundColor="#42A6D8"
+          leftComponent={{ icon: 'menu' }}
+          centerComponent={{
+            text: 'Dictionary App',
+            style: { color: 'purple' },
+          }}
+        />
 
         <TextInput
         style={{ marginTop: 200, width: '80%', alignSelf: 'center', height: 40, textAlign: 'center', borderWidth: 2, outline: 'none', }}
@@ -68,11 +81,10 @@ import { Header } from 'react-native-elements';
           value={this.state.text}
         />
         <TouchableOpacity style={styles.search} 
-
-        
         onPress={()=>{
-          this.setState({isSearchPressed});
+          this.setState({isSearchPressed:this.state.isSearchPressed});
           this.getWord(this.state.text)
+          this.texts();
         }}>
         Search
         </TouchableOpacity>
